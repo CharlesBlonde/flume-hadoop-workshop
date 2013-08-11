@@ -1,2 +1,14 @@
-Le but de ce job est d'extraire le taux horaire de 404, en extrayant l'url ciblé et le referer.
-On retrouve en suite les sites tiers ou les pages interne ayant de mauvais lien
+Hive :
+
+CREATE EXTERNAL TABLE requests2 (dateStr STRING, method STRING,ip STRING, protocol STRING,uri STRING,returnCode STRING)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TEXTFILE
+LOCATION '/user/hive/requests2'
+
+LOAD DATA INPATH '/user/cloudera/1376260488745/part-r-00000' INTO TABLE requests2
+
+select * from requests2
+
+select returncode, count(*), sum(protocol) as bandwidth
+from requests2
+group by returncode
+

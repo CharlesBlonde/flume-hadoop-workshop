@@ -8,6 +8,7 @@
         <artifactId>root</artifactId>
         <version>1.0</version>
     </parent>
+    <packaging>jar</packaging>
 
     <artifactId>errorcode-filter</artifactId>
     <version>1.0</version>
@@ -19,5 +20,47 @@
             <version>1.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+
+                    <descriptors>
+                        <descriptor>src/assembly/hadoop-job.xml</descriptor>
+                    </descriptors>
+
+                    <archive>
+                        <manifest>
+                            <mainClass>
+                                fr.xebia.techevent.hadoop.job.error.ErrorCodeFilterJob
+                            </mainClass>
+                        </manifest>
+                    </archive>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>
+                                single
+                            </goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

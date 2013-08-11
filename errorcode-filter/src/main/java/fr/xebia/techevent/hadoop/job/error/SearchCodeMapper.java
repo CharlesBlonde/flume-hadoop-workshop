@@ -16,6 +16,8 @@ public class SearchCodeMapper extends Mapper<LongWritable, Text, Text, IntWritab
 
         if (al != null && al.returnCode.equals(context.getConfiguration().get("ERROR_CODE"))) {
             context.write(new Text(al.resources), new IntWritable(1));
+        } else {
+            context.write(new Text("Null"), new IntWritable(1));
         }
     }
 }
